@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Birthday Surprise 🎉</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #0f172a, #020617);
+      overflow: hidden;
+      color: #fff;
+    }
+
+    .start-card, .main {
+      background: rgba(15, 23, 42, 0.8);
+      border-radius: 24px;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+      padding: 28px 30px;
+      text-align: center;
+      width: min(380px, 90vw);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+    }
+
+    h1, h2, h3 {
+      color: #e5e7eb;
+    }
+
+    .start-card h2 {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+    }
+
+    .start-card p {
+      color: #e5e7eb;
+      opacity: 0.9;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+    }
+
+    .surprise-link {
+      display: inline-block;
+      padding: 10px 22px;
+      border-radius: 999px;
+      border: 1px solid #f97316;
+      text-decoration: none;
+      font-weight: 600;
+      color: #0f172a;
+      background: #f97316;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .surprise-link span {
+      margin-left: 6px;
+    }
+
+    .surprise-link:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+      background: #fdba74;
+      border-color: #fed7aa;
+    }
+
+    .main {
+      display: none;
+      position: relative;
+      padding: 30px 24px 34px;
+      overflow: hidden;
+    }
+
+    .main.show {
+      display: block;
+      animation: fadeInUp 0.7s ease-out forwards;
+    }
+
+    .tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #a5b4fc;
+      opacity: 0.9;
+      margin-bottom: 12px;
+    }
+
+    .name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      background: linear-gradient(120deg, #f97316, #facc15, #f472b6, #38bdf8);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .big-text {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+      color: #f9fafb;
+      text-shadow: 0 0 18px rgba(248, 250, 252, 0.8);
+    }
+
+    .sub-text {
+      font-size: 0.9rem;
+      color: #cbd5f5;
+      opacity: 0.95;
+      margin-bottom: 16px;
+    }
+
+    .photo-frame {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 16px;
+      padding: 5px;
+      border-radius: 24px;
+      background: conic-gradient(
+        from 0deg,
+        #f97316,
+        #facc15,
+        #22c55e,
+        #38bdf8,
+        #a855f7,
+        #f97316
+      );
+      box-shadow:
+        0 0 25px rgba(248, 250, 252, 0.4),
+        0 0 60px rgba(59, 130, 246, 0.6);
+      animation: frameGlow 3s ease-in-out infinite alternate;
+    }
+
+    .photo-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #020617;
+    }
+
+    .photo-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transform: scale(1.02);
+    }
+
+    @keyframes frameGlow {
+      0% {
+        box-shadow:
+          0 0 12px rgba(251, 191, 36, 0.5),
+          0 0 30px rgba(59, 130, 246, 0.3);
+      }
+      100% {
+        box-shadow:
+          0 0 22px rgba(248, 113, 113, 0.7),
+          0 0 55px rgba(59, 130, 246, 0.8);
+      }
+    }
+
+    .typewriter {
+      margin-top: 8px;
+      height: 260px;
+      font-size: 0.9rem;
+      color: #e5e7eb;
+      line-height: 1.6;
+      text-align: left;
+      white-space: pre-line;
+      border-radius: 16px;
+      padding: 10px 12px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      position: relative;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scrollbar-width: thin;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 10px;
+      animation: blink 0.7s steps(1) infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .balloon {
+      position: absolute;
+      width: 32px;
+      height: 42px;
+      border-radius: 50% 50% 45% 45%;
+      opacity: 0.85;
+      animation: floatUp 8s linear infinite;
+      z-index: -1;
+    }
+
+    .balloon::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -18px;
+      width: 1.2px;
+      height: 22px;
+      background: rgba(248, 250, 252, 0.9);
+      transform: translateX(-50%);
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(40vh); opacity: 0; }
+      10% { opacity: 1; }
+      100% { transform: translateY(-40vh); opacity: 0; }
+    }
+
+    .confetti-piece {
+      position: fixed;
+      width: 6px;
+      height: 14px;
+      border-radius: 3px;
+      opacity: 0.9;
+      top: -20px;
+      animation: fall 4s linear infinite;
+      z-index: 20;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-20px) rotate(0deg); }
+      100% { transform: translateY(110vh) rotate(360deg); }
+    }
+
+    .footer-note {
+      font-size: 0.75rem;
+      color: #9ca3af;
+      opacity: 0.9;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ⭐ Hidden background music -->
+  <audio id="bgMusic" src="my_birthday.mp3.mpeg" preload="auto" loop style="display:none"></audio>
+
+  <!-- First Screen -->
+  <div class="start-card" id="startCard">
+    <h2>Hi 🎀</h2>
+    <p> Niku oka chinna surprise undi... <br />Ready aa? 👀✨ </p>
+    <button class="surprise-link" onclick="startSurprise()">Click here for your surprise <span>🎁</span></button>
+  </div>
+
+  <!-- Main Surprise Screen -->
+  <div class="main" id="mainCard">
+    <div class="tag">Special birthday transmission ✨</div>
+
+    <div class="photo-frame">
+      <div class="photo-inner">
+        <img src="zaheer.png.jpeg" alt="Zaheer Khan" />
+      </div>
+    </div>
+
+    <div class="big-text">Happy Birthday 🎉</div>
+    <div class="name">Zaheer Khan</div>
+    <div class="sub-text">
+      Today is not just your day… it’s my favourite day 💌
+    </div>
+
+    <div class="typewriter">
+      <span id="message"></span><span class="cursor">|</span>
+    </div>
+
+    <div class="footer-note">
+      Made with a lot of love (and a little bit of code) 💻💖
+    </div>
+  </div>
+
+  <script>
+    const lines = [
+      "Happy Birthday, Zaheer Khan 💫",
+      "",
+      "you are my everything – my friend, well wisher, care taker and my safe place. 💖",
+      "",
+      "My boy,you are so special to me.",
+      "Na smiles ki reason ayyav.🙂",
+      "",
+      "Life lo evarini choose chesina,",
+      "nee place, nee value, nee memories evaru replace cheyaleru 💯",
+      "",
+      "Lots of love ZaHero. 💕",
+      "Nee every dreams fulfill avvali,",
+      "nee face meedha ee cute smile epudu undali. ✨",
+      "",
+      "I can't put into word how thankful , i am for you for walking into my life and filling it with so much light",
+      "The beautiful soul that makes everey day so much brighter-you deserve nothing less!",
+      "Once again… Happy Birthday to my everything 🤍"
+    ];
+
+    const typingSpeed = 40;
+    const delayBetweenLines = 500;
+
+    const msgEl = document.getElementById("message");
+    const startCard = document.getElementById("startCard");
+    const mainCard = document.getElementById("mainCard");
+
+    function startSurprise() {
+      startCard.style.display = "none";
+      mainCard.classList.add("show");
+
+      // 🎶 Hidden looping background music
+      const music = document.getElementById("bgMusic");
+      music.volume = 0.75;
+      music.play().catch(() => {
+        document.body.addEventListener("click", () => music.play(), { once: true });
+      });
+
+      spawnBalloons();
+      spawnConfetti();
+      typeAllLines();
+    }
+
+    function typeLine(line, idx) {
+      return new Promise((resolve) => {
+        let i = 0;
+        function nextChar() {
+          if (i < line.length) {
+            msgEl.textContent += line.charAt(i);
+            i++;
+            setTimeout(nextChar, typingSpeed);
+          } else {
+            msgEl.textContent += "\n";
+            setTimeout(resolve, delayBetweenLines);
+          }
+        }
+        nextChar();
+      });
+    }
+
+    async function typeAllLines() {
+      msgEl.textContent = "";
+      for (let i = 0; i < lines.length; i++) {
+        await typeLine(lines[i], i);
+      }
+    }
+
+    function spawnBalloons() {
+      const colors = [
+        "rgba(248, 250, 252, 0.95)",
+        "rgba(251, 191, 36, 0.95)",
+        "rgba(248, 113, 113, 0.95)",
+        "rgba(129, 140, 248, 0.95)"
+      ];
+      for (let i = 0; i < 10; i++) {
+        const b = document.createElement("div");
+        b.className = "balloon";
+        const left = Math.random() * 100;
+        const delay = Math.random() * 6;
+        const duration = 6 + Math.random() * 4;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        b.style.left = left + "vw";
+        b.style.background = color;
+        b.style.animationDuration = duration + "s";
+        b.style.animationDelay = delay + "s";
+        document.body.appendChild(b);
+      }
+    }
+
+    function spawnConfetti() {
+      const colors = ["#f97316", "#facc15", "#22c55e", "#38bdf8", "#a855f7", "#fb7185"];
+      for (let i = 0; i < 60; i++) {
+        const c = document.createElement("div");
+        c.className = "confetti-piece";
+        const left = Math.random() * 100;
+        const delay = Math.random() * 4;
+        const duration = 3 + Math.random() * 2;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        c.style.left = left + "vw";
+        c.style.background = color;
+        c.style.animationDuration = duration + "s";
+        c.style.animationDelay = delay + "s";
+        document.body.appendChild(c);
+      }
+    }
+  </script>
+
+</body>
+</html>
