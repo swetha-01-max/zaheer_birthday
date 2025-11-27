@@ -434,41 +434,10 @@
         document.body.appendChild(c);
       }
     }
-    /* Final Surprise */
-function showFinalSurprise(){
-  finalBtn.style.display="none";
-  document.getElementById("cakeSection").style.display="block";
-
-  const snd=document.getElementById("secondSong");
-  snd.volume=1;
-  snd.play().catch(()=>{document.body.addEventListener("click",()=>snd.play(),{once:true});});
-
-  startFireworks();
-}
-
-/* Fireworks */
-function startFireworks(){
-  const canvas=document.getElementById("fireworksCanvas");
-  const ctx=canvas.getContext("2d");
-
-  function spark(){
-    let x=Math.random()*canvas.width;
-    let y=Math.random()*canvas.height;
-    let r=Math.random()*3+2;
-
-    ctx.fillStyle=`hsl(${Math.random()*360},100%,70%)`;
-    ctx.beginPath();
-    ctx.arc(x,y,r,0,Math.PI*2);
-    ctx.fill();
-
-    setTimeout(()=>ctx.clearRect(0,0,canvas.width,canvas.height),150);
-  }
-
-  setInterval(spark,150);
-}
-
+    
   </script>
 
 </body>
 </html>
+
 
